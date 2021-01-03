@@ -11,9 +11,9 @@ def create(request):
         form = CourseForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('read.dashboard')
+            return redirect('dashboard.course')
 
-    return render(request, 'course/create.html')
+    return render(request, 'create.html')
 
 def read(request):
     courses = Course.objects.all()
@@ -34,7 +34,7 @@ def update(request, id):
 def delete(request, id):
     course = Course.objects.get(id=id)
     course.delete()
-    return redirect('read.dashboard')
+    return redirect('dashboard.course')
 
 @login_required
 def dashboard(request):

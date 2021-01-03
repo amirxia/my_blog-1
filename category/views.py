@@ -9,7 +9,7 @@ def create(request):
         form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            return redirect('dashboard.category')
 
     return render(request, 'category/create.html')
 
@@ -19,10 +19,12 @@ def read(request):
 
 def dashboard(request):
     categories = Category.objects.all()
-    return render(request, 'category.html', {'categories': categories})
+    return render(request, 'category/category.html', {'categories': categories})
 
 def update(request, id):
     pass
 
 def delete(request, id):
-    pass
+    category = Category.objects.get(id=id)
+    category.delete()
+    return redirect('dashboard.category')

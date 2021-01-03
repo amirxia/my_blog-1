@@ -1,0 +1,43 @@
+
+
+{% extends 'dashboard.html' %}
+
+{% block dashboard %}
+
+<a class="btn btn-success m-2" href="{% url 'create.article' category.id %}">Create</a>
+<div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Image</th>
+              <th>Create Time</th>
+              <th>Update Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for article in articles %}
+          <tr>
+              <td>{{ article.title }}</td>
+              <td>{{ article.body }}</td>
+              <td>{{ article.image }}</td>
+
+              <td>{{ article.created_at }}</td>
+              <td>{{ article.updated_at }}</td>
+              <td>
+                  <a href="{% url 'update.article' article.id %}" class="btn btn-warning">Edit</a>
+                  <a href="{% url 'delete.article' article.id %}" class="btn btn-danger">Delete</a>
+              </td>
+
+            </tr>
+          {% endfor %}
+
+
+
+          </tbody>
+        </table>
+      </div>
+
+{% endblock %}

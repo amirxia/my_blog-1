@@ -4,6 +4,7 @@
 
 {% block dashboard %}
 
+<a class="btn btn-success m-2" href="{% url 'course.create' %}">Create</a>
 <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -29,6 +30,7 @@
               <td>
                   <a href="{% url 'update.course' course.id %}" class="btn btn-warning">Edit</a>
                   <a href="{% url 'delete.course' course.id %}" class="btn btn-danger">Delete</a>
+                  <a href="{% url 'read.episode' course.id %}" class="btn btn-info">Episodes</a>
               </td>
 
             </tr>

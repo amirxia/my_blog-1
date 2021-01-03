@@ -14,16 +14,19 @@ def create(request, id):
             f = form.save(commit=False)
             f.category_id = category.id
             f.save()
-            return redirect('dashboard')
+            return redirect('dashboard.category')
 
-    return render(request, 'admin/article/category.html', {'category': category})
+    return render(request, 'create_article.html', {'category': category})
 
 def read(request, id):
     articles = Article.objects.filter(category_id=id)
-    return render(request, 'admin/article/read.html', {'articles': articles})
+    category = Category.objects.get(id=id)
+    return render(request, 'article.html', {'articles': articles, 'category': category})
 
 def update(request, id):
     pass
 
 def delete(request, id):
-    pass
+    article = Article.objects.get(id=id)
+    article.delete()
+    return redirect('dashboard.category')

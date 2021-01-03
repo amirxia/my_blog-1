@@ -1,0 +1,24 @@
+{% extends 'dashboard.html' %}
+
+
+{% block dashboard %}
+
+    <div class="container">
+        <form class="form-group" action="{% url 'create.episode' course.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="id_title">Title: </label>
+            <input class="form-control" id="id_title" name="title" type="text" placeholder="Title...">
+
+            <label for="id_body">Time: </label>
+            <textarea class="form-control" id="id_body" name="time" type="text" placeholder="Time..."></textarea>
+
+            <label for="id_video">Video: </label>
+            <input class="form-control" id="id_video" name="video" type="file">
+
+            <input class="btn btn-success mt-2" type="submit" value="Create">
+        </form>
+    </div>
+
+
+{% endblock %}

@@ -14,14 +14,14 @@ def create(request, id):
             f = form.save(commit=False)
             f.course_id = id
             f.save()
-            return redirect('dashboard')
+            return redirect('dashboard.course')
 
-    return render(request, 'episode/create.html', {'course': course})
+    return render(request, 'create_episode.html', {'course': course})
 
 def read(request, id):
     episodes = Episode.objects.filter(course_id=id)
     course = Course.objects.get(id=id)
-    return render(request, 'admin/episode.html', {'episodes': episodes, 'course': course})
+    return render(request, 'episode.html', {'episodes': episodes, 'course': course})
 
 def update(request, id):
     episode = Episode.objects.get(id=id)
@@ -36,4 +36,4 @@ def update(request, id):
 def delete(request, id):
     episode = Episode.objects.get(id=id)
     episode.delete()
-    return redirect('dashboard')
+    return redirect('dashboard.course')
