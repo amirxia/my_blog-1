@@ -8,5 +8,7 @@ urlpatterns = [
     path('dashboard', views.dashboard, name="dashboard.category"), #localhost:8000/category/dashboard
     path('update/<int:id>', views.update, name="update.category"), #localhost:8000/category/update
     path('delete/<int:id>', views.delete, name="delete.category"), #localhost:8000/category/delete
+
+    path('api-read', views.api_read),
 ]
 

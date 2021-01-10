@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from category.models import Category
 from .forms import ArticleForm
 from .models import Article
 
 # Create your views here.
+from .serializers import ArticleSerializer
 
 
 def create(request, id):
@@ -30,3 +34,11 @@ def delete(request, id):
     article = Article.objects.get(id=id)
     article.delete()
     return redirect('dashboard.category')
+
+
+@api_view(['get'])
+def api_read(request):
+    articles = Article.objects.all()
+    if request.method == "GET":
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data)

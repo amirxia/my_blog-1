@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'bootstrap',
     'fontawesome',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
