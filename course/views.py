@@ -1,8 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
+
 from .forms import CourseForm
 # Create your views here.
 from .models import Course
+from .serializers import CourseSerializer
 
 
 @login_required
@@ -40,3 +46,14 @@ def delete(request, id):
 def dashboard(request):
     courses = Course.objects.all()
     return render(request, 'course.html', {'courses': courses})
+
+
+@api_view(['POST'])
+def api_create(request):
+    if request.method == "POST":
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
