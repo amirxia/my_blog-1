@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 
 from rest_framework.decorators import api_view
@@ -12,6 +12,7 @@ from .serializers import CourseSerializer
 
 
 @login_required
+@permission_required('course.add_course')
 def create(request):
     if request.method == "POST":
         form = CourseForm(request.POST, request.FILES)
