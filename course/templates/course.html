@@ -31,10 +31,13 @@
               <td>{{ course.updated_at }}</td>
               <td>
 
-                  <a href="{% url 'update.course' course.id %}" class="btn btn-warning">Edit</a>
+                  {% if perms.course.change_course %}
+                    <a href="{% url 'update.course' course.id %}" class="btn btn-warning">Edit</a>
+                  {% endif %}
 
+                  {% if perms.course.delete_course%}
                   <a href="{% url 'delete.course' course.id %}" class="btn btn-danger">Delete</a>
-
+                  {% endif %}
                   <a href="{% url 'read.episode' course.id %}" class="btn btn-info">Episodes</a>
               </td>
 

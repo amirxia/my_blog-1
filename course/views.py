@@ -29,12 +29,16 @@ def read(request):
 
 @login_required
 def update(request, id):
-    course = Course.objects.get(id=id)
-    if request.method == "POST":
-        form = CourseForm(request.POST, request.FILES, instance=course)
-        if form.is_valid():
-            form.save()
-            return redirect('read.dashboard')
+
+    if request.user.has_perm("course.change_course"):
+        course = Course.objects.get(id=id)
+        if request.method == "POST":
+            form = CourseForm(request.POST, request.FILES, instance=course)
+            if form.is_valid():
+                form.save()
+                return redirect('read.dashboard')
+    else:
+        return redirect('register')
     return render(request, 'course/update.html', {'course': course})
 
 @login_required
@@ -44,6 +48,7 @@ def delete(request, id):
     return redirect('dashboard.course')
 
 @login_required
+
 def dashboard(request):
     courses = Course.objects.all()
     return render(request, 'course.html', {'courses': courses})
